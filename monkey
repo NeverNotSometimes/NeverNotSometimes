@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9YG7C4CCC5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);
+  gtag('js', new Date());
+  gtag('config', 'G-9YG7C4CCC5');
+</script>
+  <link rel="stylesheet" href="style.css">
+    <title>Neverland</title>
+    <link rel="stylesheet" href="style.css">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7147610483646909"
+     crossorigin="anonymous"></script>
+    <title>Redirect</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <br>
+    <p style="color: #5b1ac4; text-align: center;">If you don't get redirected, allow popups!<br>
+    If you STILL don't get redirected, go to <span style="display: inline-block;"><a href="blank">notsometimes.github.io/home</a></span></p>
+    <script>
+      var defaultUrl = "https://twitch.tv";
+      var win = window.open("about:blank");
+      win.addEventListener("load", function() {
+        var iframe = win.document.createElement("iframe");
+        iframe.style.width = "100%";
+        iframe.style.height = "100%";
+        iframe.style.position = "fixed";
+        iframe.style.top = "0";
+        iframe.style.left = "0";
+        iframe.style.border = "0";
+        iframe.referrerpolicy = "no-referrer";
+        iframe.allow = "fullscreen";
+        iframe.src = defaultUrl;
+        win.document.body.appendChild(iframe);
+        location.replace("https://google.com")
+      });
+    </script>
+  </body>
+</html>
