@@ -13,19 +13,37 @@
     <link rel="stylesheet" href="style.css">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7147610483646909"
      crossorigin="anonymous"></script>
+     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search</title>
+    <link rel="stylesheet" href="searchbar/stylesearch.css">
   </head>
   <body>
     <h1>Games</h1>
     <nav>
     <div>
       <button class="rounded grow" style="background-color: transparent; border: 3px solid rgb(70, 15, 143); font-size: 28px;">
-        <a href="home.html">Home</a>
+        <a href="index">Home</a>
       </button>
     </div>
     <br>
-    <p class="small-text">I should probably add a search bar...</p>
     </nav>
-    <br>
+    <div>
+      <form>
+        <div class="search-container">
+          <input id="searchbar" type="text" name="search" placeholder="Search for a game..." class="search-input">
+          <a href="#" class="search-btn">
+          <i class="fas fa-search"></i>
+        </div>
+      </form>
+    </div>
+    <script src="https://kit.fontawesome.com/407915e39a.js" crossorigin="anonymous"></script>
+    </div>
     <br>
     <div class="gcontainer">
     <div class="row">
@@ -215,7 +233,7 @@
         </div>
         <div class="col">
           <a href="projects\raftwars2\index.html"><img class="game-img rounded gamegrow" src="https://pocket-image-cache.com/160x160/https://img.poki.com/8ce3d09339bcb18c63bf9f1780795944.png" alt="Raft Wars Game"></a>
-          <h2 class="small-text">Raft Wars</h2>
+          <h2 class="small-text">Raft Wars 2</h2>
         </div>
         <div class="col">
           <a href="projects/retrobowl/index.html"><img class="game-img rounded gamegrow" src="projects/retrobowl/img/icon.jpg" alt="Retro Bowl Karts Game"></a>
@@ -312,5 +330,6 @@
     <p class="small-text centered">Not finding your favorite game? Request it on discord!</p>
     <p class="smaller-text centered">Credit to 3kh0 for some games.</p>
     <br>
+    <script src="searchbar/search.js"></script>
   </body>
 </html>

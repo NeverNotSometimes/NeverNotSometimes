@@ -82,13 +82,26 @@ img {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  height: 350rem;
 }
 
 .col {
-  flex: 0 0 auto;
-  width: 30%;
-  margin: 40px auto;
+  flex: 1 1 auto;
+  width: 25%; 
+  min-width: 25%;
   text-align: center;
+}
+
+@media (max-width: 1200px) {
+  .col {
+    width: calc(100% / 2); /* Adjust width for smaller screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .col {
+    width: 100%; /* Full width for smaller devices */
+  }
 }
 
 .rounded {
