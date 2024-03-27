@@ -82,7 +82,7 @@ function redirectToTMDb(movieId) {
 const loading = document.querySelector('.lds-ring'); // Get the loading animation element
 loading.style.display = 'block'; // Display the loading animation
 
-var movieUrl = `https://embed.smashystream.com/playere.php?tmdb=${movieId}`;
+var movieUrl = `https://vidsrc.to/vapi/movie/${movieId}`;
 var iframe = document.createElement("iframe");
 iframe.src = movieUrl;
 iframe.style.width = "100%";
