@@ -147,6 +147,43 @@ nav button {
   text-align: center;
 }
 
+.category-container {
+  margin-bottom: 30px;
+}
+
+.category-title {
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.movies-list {
+display: flex;
+overflow-x: auto; /* Enable horizontal scrolling */
+padding-bottom: 15px;
+width: 100%; /* Set a fixed width for the container */
+}
+
+.movie-item {
+cursor: pointer;
+min-width: 120px; /* Adjust as needed */
+max-width: 120px;
+border-radius: 10px;
+margin: 10px;
+overflow: hidden;
+display: inline-block;
+transition: transform 0.2s;
+}
+
+.movie-item:hover {
+transform: scale(1.1);
+}
+
+.movie-item img {
+max-width: 100%;
+height: auto;
+border-radius: 10px;
+}
+
 /* GRADIEIENT BACKGROUND 
 
 .box:before {

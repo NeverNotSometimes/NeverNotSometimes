@@ -2,95 +2,56 @@
 <html>
 <head>
   <title>Movies - Neverland</title>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-9YG7C4CCC5"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-9YG7C4CCC5');
-</script>
-    <title>Neverland - Movies</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="stylesearch.css"
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7147610483646909"
-     crossorigin="anonymous"></script>
+  <!-- Add your existing CSS links here -->
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="searchbar/stylesearch.css">
+  <!-- Add your existing JavaScript links here -->
+  <script src="https://kit.fontawesome.com/407915e39a.js" crossorigin="anonymous"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9YG7C4CCC5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-9YG7C4CCC5');
+  </script>
+  <script src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7147610483646909" crossorigin="anonymous"></script>
   <style>
-    body {
-    overflow-y: scroll;
+    .category-container {
+      margin-bottom: 30px;
+    }
+    
+    .category-title {
+      font-size: 24px;
+      margin-bottom: 15px;
     }
 
-    #movieContainer {
-      margin-top: 20px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      padding: 0 10%;
-    }
-    .movie-item {
-      margin: 20px;
-      cursor: pointer;
-      width: 11rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      transition: transform 0.2s;
-      transform: scale(1);
-    }
-    .movie-item:hover {
-      transform: scale(1.08);
-    }
-    .movie-item img {
-      width: 100%;
-      height: auto;
-      border-radius: 20px;
-    }
-    #loading {
-      display: none; /* Initially hide loading animation */
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 9999; /* Ensure it's on top */
-    }
-    .lds-ring {
-      display: inline-block;
-      position: relative;
-      width: 80px;
-      height: 80px;
-    }
-    .lds-ring div {
-      box-sizing: border-box;
-      display: block;
-      position: absolute;
-      width: 64px;
-      height: 64px;
-      margin: 8px;
-      border: 8px solid #7f7bf2;
-      border-radius: 50%;
-      animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-      border-color: #7f7bf2 transparent transparent transparent;
-    }
-    .lds-ring div:nth-child(1) {
-      animation-delay: -0.45s;
-    }
-    .lds-ring div:nth-child(2) {
-      animation-delay: -0.3s;
-    }
-    .lds-ring div:nth-child(3) {
-      animation-delay: -0.15s;
-    }
-    @keyframes lds-ring {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
-      }
-    }
+    .movies-list {
+  display: flex;
+  overflow-x: auto; /* Enable horizontal scrolling */
+  padding-bottom: 15px;
+  width: 100%; /* Set a fixed width for the container */
+}
+
+.movie-item {
+  cursor: pointer;
+  min-width: 120px; /* Adjust as needed */
+  max-width: 120px;
+  border-radius: 10px;
+  margin: 10px;
+  overflow: hidden;
+  display: inline-block;
+  transition: transform 0.2s;
+}
+
+.movie-item:hover {
+  transform: scale(1.1);
+}
+
+.movie-item img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
   </style>
 </head>
 <body>
@@ -105,18 +66,34 @@
   <div>
     <form id="searchForm">
       <div class="search-container">
-        <input id="searchbar" type="text" name="search" placeholder="Search for a movie..." class="search-input">
+        <input id="searchbar" type="text" name="search" placeholder="Search for a movie..." class="search-input" autocomplete="off">
         <a href="#" class="search-btn" onclick="searchMovies()">
           <i class="fas fa-search"></i>
         </a>
-        
       </div>
     </form>
   </div>
-  <script src="https://kit.fontawesome.com/407915e39a.js" crossorigin="anonymous"></script>
+  <br>
+  <div class="category-container">
+    <h2 class="category-title">Popular Movies</h2>
+    <div class="movies-list" id="popularMovies"></div>
+  </div>
+
+  <div class="category-container">
+    <h2 class="category-title">Recent Movies</h2>
+    <div class="movies-list" id="recentMovies"></div>
+  </div>
+
+  <div class="category-container">
+    <h2 class="category-title">Highly Rated Movies</h2>
+    <div class="movies-list" id="highRatedMovies"></div>
+  </div>
+
+  <div id="noResults" style="font-size: 36px; font-weight: 700; margin-top: 15px;"></div>
+
   <div id="movieContainer"></div>
   <div id="loading" class="lds-ring"><div></div><div></div><div></div><div></div></div>
-
+  
   <script>
     document.getElementById('searchForm').addEventListener('submit', function(event) {
         event.preventDefault(); // Prevent the default form submission
@@ -124,80 +101,174 @@
       });
     
     document.getElementById('searchbar').addEventListener('input', function(event) {
-        searchMovies(); // Search movies as the user types
+    const searchTerm = event.target.value.trim();
+    if (searchTerm === '') {
+        showCategories(); // Show categories if the search bar is empty
+    } else {
+        hideCategories(); // Hide categories if the user starts typing
+    }
+    searchMovies(); // Search movies as the user types
+});
+
+function showCategories() {
+    const categoryContainers = document.querySelectorAll('.category-container');
+    categoryContainers.forEach(container => {
+        container.style.display = 'block';
     });
+}
+
+function hideCategories() {
+    const categoryContainers = document.querySelectorAll('.category-container');
+    categoryContainers.forEach(container => {
+        container.style.display = 'none';
+    });
+}
     
-    async function searchMovies() {
-      try {
+   async function searchMovies() {
+    try {
         const searchTerm = document.getElementById('searchbar').value.trim();
         if (searchTerm === '') {
-          clearMovies();
-          return;
+            clearMovies();
+            return;
         }
         const apiKey = 'c0aa80b5561bd96b6cd261ac6d57886c';
         const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${searchTerm}`);
         const data = await response.json();
-        
+
         console.log(data); // Log the response for debugging
-        
+
         if (data.results.length > 0) {
-          displayMovies(data.results);
+            // Clear "No results found" message
+            document.getElementById('noResults').innerText = '';
+            // Display the movies
+            displayMovies(data.results, 'movieContainer');
         } else {
-          alert('No movies found!');
+            // Display "No results found!" text on the screen
+            document.getElementById('noResults').innerText = 'No results found';
+            // Clear any existing movies from the screen
+            clearMovies();
         }
-      } catch (error) {
+    } catch (error) {
         console.error('Error fetching movies:', error);
         alert('An error occurred while fetching movies.');
-      }
     }
+}
+
     
-    function displayMovies(movies) {
-      const movieContainer = document.getElementById('movieContainer');
-      movieContainer.innerHTML = ''; // Clear previous results
+    function displayMovies(movies, containerId) {
+  const movieContainer = document.getElementById(containerId);
+  movieContainer.innerHTML = ''; // Clear previous results
+
+  movies.forEach(movie => {
+    if (movie.poster_path) {
+    const movieItem = document.createElement('div');
+    movieItem.classList.add('movie-item');
     
-      movies.forEach(movie => {
-        const movieItem = document.createElement('div');
-        movieItem.classList.add('movie-item');
-        
-        const posterPath = movie.poster_path ? `https://image.tmdb.org/t/p/w200${movie.poster_path}` : 'https://via.placeholder.com/150';
-        const img = document.createElement('img');
-        img.src = posterPath;
-        movieItem.appendChild(img);
-    
-        movieItem.addEventListener('click', () => redirectToTMDb(movie.id));
-        movieContainer.appendChild(movieItem);
-      });
+    const posterPath = `https://image.tmdb.org/t/p/w200${movie.poster_path}`;
+    const img = document.createElement('img');
+    img.src = posterPath;
+    movieItem.appendChild(img);
+
+    movieItem.addEventListener('click', () => redirectToTMDb(movie.id));
+    movieContainer.appendChild(movieItem); // Append to the respective category container
     }
-    
-    function redirectToTMDb(movieId) {
-      var movieUrl = `https://vidsrc.to/embed/movie/${movieId}`;
-      var iframe = document.createElement("iframe");
-      iframe.src = movieUrl;
-      iframe.style.width = "100%";
-      iframe.style.height = "100%";
-      iframe.style.border = "0";
-      iframe.style.position = "fixed";
-      iframe.style.top = "0";
-      iframe.style.left = "0";
-      iframe.referrerpolicy = "no-referrer";
-      iframe.allow = "fullscreen";
-      
-      // Display loading animation before appending iframe
-      const loading = document.querySelector('.lds-ring');
-      loading.style.display = 'block';
-      
-      // Append iframe after loading animation is displayed
-      setTimeout(function() {
-        document.getElementById("movieContainer").innerHTML = "";
+  });
+}
+
+function redirectToTMDb(movieId) {
+    const loading = document.querySelector('.lds-ring'); // Get the loading animation element
+    loading.style.display = 'block'; // Display the loading animation
+
+    var movieUrl = `https://vidsrc.to/embed/movie/${movieId}`;
+    var iframe = document.createElement("iframe");
+    iframe.src = movieUrl;
+    iframe.style.width = "100%";
+    iframe.style.height = "100%";
+    iframe.style.border = "0";
+    iframe.style.position = "fixed";
+    iframe.style.top = "0";
+    iframe.style.left = "0";
+    iframe.referrerpolicy = "no-referrer";
+    iframe.allow = "fullscreen";
+
+    // Append iframe after a short delay to allow the loading animation to be displayed
+    setTimeout(function() {
+        // Append iframe after loading animation is displayed
+        document.getElementById("movieContainer").innerHTML = ""; // Clear previous content
         document.getElementById("movieContainer").appendChild(iframe);
         loading.style.display = 'none'; // Hide loading animation when iframe content is loaded
-      }, 2000); // Adjust time delay as needed (2000 milliseconds = 2 seconds)
-    }
+    }, 100); // Adjust time delay as needed (100 milliseconds)
+}
   
     function clearMovies() {
       document.getElementById('movieContainer').innerHTML = '';
     }
-    </script>
+
+    // Load popular, recent, and highly rated movies
+    document.addEventListener('DOMContentLoaded', async function() {
+    await loadPopularMovies();
+    await loadRecentMovies();
+    await loadHighlyRatedMovies();
+});
+
+async function loadPopularMovies() {
+    try {
+        const apiKey = 'c0aa80b5561bd96b6cd261ac6d57886c';
+        const response = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`);
+        const data = await response.json();
+
+        console.log(data); // Log the response for debugging
+
+        if (data.results.length > 0) {
+            displayMovies(data.results, 'popularMovies');
+        } else {
+            alert('No popular movies found!');
+        }
+    } catch (error) {
+        console.error('Error fetching popular movies:', error);
+        alert('An error occurred while fetching popular movies.');
+    }
+}
+
+async function loadRecentMovies() {
+    try {
+        const apiKey = 'c0aa80b5561bd96b6cd261ac6d57886c';
+        const response = await fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}`);
+        const data = await response.json();
+
+        console.log(data); // Log the response for debugging
+
+        if (data.results.length > 0) {
+            displayMovies(data.results, 'recentMovies');
+        } else {
+            alert('No recent movies found!');
+        }
+    } catch (error) {
+        console.error('Error fetching recent movies:', error);
+        alert('An error occurred while fetching recent movies.');
+    }
+}
+
+async function loadHighlyRatedMovies() {
+    try {
+        const apiKey = 'c0aa80b5561bd96b6cd261ac6d57886c';
+        const response = await fetch(`https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}`);
+        const data = await response.json();
+
+        console.log(data); // Log the response for debugging
+
+        if (data.results.length > 0) {
+            displayMovies(data.results, 'highRatedMovies');
+        } else {
+            alert('No highly rated movies found!');
+        }
+    } catch (error) {
+        console.error('Error fetching highly rated movies:', error);
+        alert('An error occurred while fetching highly rated movies.');
+    }
+}
+
+  </script>
   <script src="searchbar/searchmovies.js"></script>
 </body>
 </html>
