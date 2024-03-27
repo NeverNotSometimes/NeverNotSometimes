@@ -79,28 +79,29 @@ movieContainer.appendChild(movieItem); // Append to the respective category cont
 }
 
 function redirectToTMDb(movieId) {
-const loading = document.querySelector('.lds-ring'); // Get the loading animation element
-loading.style.display = 'block'; // Display the loading animation
+    const loading = document.querySelector('.lds-ring'); // Get the loading animation element
+    loading.style.display = 'block'; // Display the loading animation
 
-var movieUrl = `https://vidsrc.to/vapi/movie/${movieId}`;
-var iframe = document.createElement("iframe");
-iframe.src = movieUrl;
-iframe.style.width = "100%";
-iframe.style.height = "100%";
-iframe.style.border = "0";
-iframe.style.position = "fixed";
-iframe.style.top = "0";
-iframe.style.left = "0";
-iframe.referrerpolicy = "no-referrer";
-iframe.allow = "fullscreen";
+    const movieUrl = `https://vidsrc.to/embed/movie/${movieId}`;
+    const iframe = document.createElement("iframe");
+    iframe.src = movieUrl;
+    iframe.style.width = "100%";
+    iframe.style.height = "100%";
+    iframe.style.border = "0";
+    iframe.style.position = "fixed";
+    iframe.style.top = "0";
+    iframe.style.left = "0";
+    iframe.referrerPolicy = "no-referrer";
+    iframe.allow = "fullscreen";
+    iframe.sandbox = "allow-scripts allow-same-origin";
 
-// Append iframe after a short delay to allow the loading animation to be displayed
-setTimeout(function() {
-    // Append iframe after loading animation is displayed
-    document.getElementById("movieContainer").innerHTML = ""; // Clear previous content
-    document.getElementById("movieContainer").appendChild(iframe);
-    loading.style.display = 'none'; // Hide loading animation when iframe content is loaded
-}, 100); // Adjust time delay as needed (100 milliseconds)
+    // Append iframe after a short delay to allow the loading animation to be displayed
+    setTimeout(function() {
+        // Append iframe after loading animation is displayed
+        document.getElementById("movieContainer").innerHTML = ""; // Clear previous content
+        document.getElementById("movieContainer").appendChild(iframe);
+        loading.style.display = 'none'; // Hide loading animation when iframe content is loaded
+    }, 100); // Adjust time delay as needed (100 milliseconds)
 }
 
 function clearMovies() {
