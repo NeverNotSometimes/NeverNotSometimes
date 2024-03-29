@@ -94,7 +94,6 @@ function redirectToTMDb(movieId) {
     iframe.referrerPolicy = "no-referrer";
     iframe.allow = "fullscreen";
     
-
     // Append iframe after a short delay to allow the loading animation to be displayed
     setTimeout(function() {
         // Append iframe after loading animation is displayed
